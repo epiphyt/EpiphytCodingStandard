@@ -37,7 +37,7 @@ class ParamFormatSniff implements Sniff
             case '@param':
                 $content = $phpcsFile->getTokensAsString($tagPos, 3, true);
 
-                if (\preg_match('/\@param\t+([\w\[\]\|\\]+)\t+\$\w+ ([^\s]*)/', $content) !== false) {
+                if (!\preg_match('/\@param\t+([\w\[\]\|\\]+)\t+\$\w+ ([^\s]*)/', $content)) {
                     $phpcsFile->addError(
                         'Invalid parameter format. Properties must be separated by type and parameter must contain a description.',
                         $tagPos,
@@ -49,7 +49,7 @@ class ParamFormatSniff implements Sniff
             case '@return':
                 $content = $phpcsFile->getTokensAsString($tagPos, 3, true);
 
-                if (\preg_match('/\@return\t+([\w\[\]\|\\]+) ([^\s]*)/', $content) !== false) {
+                if (!\preg_match('/\@return\t+([\w\[\]\|\\]+) ([^\s]*)/', $content)) {
                     $phpcsFile->addError(
                         'Invalid parameter format. A tab must follow the @return with a type and a description separated by a single space.',
                         $tagPos,
@@ -60,8 +60,8 @@ class ParamFormatSniff implements Sniff
 
             default:
                 $content = $phpcsFile->getTokensAsString($tagPos, 3, true);
-
-                if (\preg_match('/' . \preg_quote($tokens[$tagPos]['content'], '/') . '\t+([^\s]+)/', $content) !== false) {
+                
+                if (!\preg_match('/' . \preg_quote($tokens[$tagPos]['content'], '/') . '\t+([^\s]+)/', $content)) {
                     $phpcsFile->addError(
                         'Invalid parameter format. A tab must follow the @command.',
                         $tagPos,
