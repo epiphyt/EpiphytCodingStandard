@@ -1,0 +1,18 @@
+{
+    "require": {
+        "squizlabs/php_codesniffer": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.0",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpcompatibility/phpcompatibility-paragonie": "*",
+        "phpcompatibility/phpcompatibility-wp": "*",
+        "slevomat/coding-standard": "^8.14",
+        "automattic/phpcs-neutron-standard": "^1.7"
+    }
+}

@@ -1,0 +1,425 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="EpiphytCodingStandard">
+	<description>A strict ruleset used at Epiphyt.</description>
+
+	<!-- Exclude WP Core folders and files from being checked. -->
+	<exclude-pattern>*/wp-admin/*</exclude-pattern>
+	<exclude-pattern>*/wp-includes/*</exclude-pattern>
+	<exclude-pattern>*/wp-*.php</exclude-pattern>
+	<exclude-pattern>*/index.php</exclude-pattern>
+	<exclude-pattern>*/xmlrpc.php</exclude-pattern>
+	<exclude-pattern>*/wp-content/plugins/*</exclude-pattern>
+
+	<!-- Exclude the Composer Vendor directory. -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+
+	<!-- Exclude the Node Modules directory. -->
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+
+	<!-- Exclude the build directory. -->
+	<exclude-pattern>/build/*</exclude-pattern>
+
+	<!-- Exclude CSS files. -->
+	<exclude-pattern>*.css</exclude-pattern>
+
+	<!-- Exclude JavaScript files. -->
+	<exclude-pattern>*.js</exclude-pattern>
+	
+	<!-- Exclude src folder, which usually only contains Gutenberg things -->
+	<exclude-pattern>/src*</exclude-pattern>
+	
+	<!-- Exclude test folder, since tests usually have a different code style -->
+	<exclude-pattern>/tests/*</exclude-pattern>
+	
+	<!-- Check all PHP files in directory tree by default. -->
+	<arg name="extensions" value="php"/>
+	<file>.</file>
+	
+	<!-- Show progress and sniff codes in all reports -->
+	<arg value="ps"/>
+	
+	<!-- Strip the filepaths down to the relevant bit. -->
+	<arg name="basepath" value="."/>
+	
+	<!-- Check up to 8 files simultaneously. -->
+	<arg name="parallel" value="8"/>
+	
+	<autoload>./vendor/autoload.php</autoload>
+	
+	<!-- Enforce PSR1 compatible namespaces. -->
+	<rule ref="PSR1.Classes.ClassDeclaration"/>
+	
+	<rule ref="PSR2">
+		<exclude name="PSR2"/>
+	</rule>
+	
+	<rule ref="PSR2.Methods.FunctionClosingBrace"/>
+	
+	<rule ref="Generic.Files.LineLength">
+		<properties>
+			<property name="lineLimit" value="80"/>
+			<property name="absoluteLineLimit" value="120"/>
+		</properties>
+	</rule>
+	
+	<rule ref="Universal">
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax.Found"/>
+		<exclude name="Universal.Classes.DisallowFinalClass.FinalClassFound"/>
+		<exclude name="Universal.Namespaces.EnforceCurlyBraceSyntax.Forbidden"/>
+		<exclude name="Universal.UseStatements.DisallowUseClass.FromGlobalNamespace"/>
+		<exclude name="Universal.UseStatements.DisallowUseClass.FoundWithoutAlias"/>
+		<exclude name="Universal.WhiteSpace.DisallowInlineTabs.NonIndentTabsUsed"/>
+	</rule>
+	
+	<rule ref="PHPCompatibility"/>
+	<rule ref="PHPCompatibilityWP"/>
+	
+	<rule ref="WordPress">
+		<exclude name="WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned"/>
+		<exclude name="WordPress.DB.PreparedSQLPlaceholders.UnsupportedIdentifierPlaceholder"/>
+		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_key"/>
+		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_value"/>
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound"/>
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound"/>
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound"/>
+		<exclude name="WordPress.PHP.DisallowShortTernary.Found"/>
+		<exclude name="WordPress.PHP.YodaConditions"/>
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedNamespaceFound"/>
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed"/>
+		<exclude name="WordPress.WhiteSpace.DisallowInlineTabs.NonIndentTabsUsed"/>
+		<exclude name="WordPress.WhiteSpace.PrecisionAlignment.Found"/>
+		<exclude name="WordPress.WP.EnqueuedResourceParameters.NotInFooter"/>
+	</rule>
+	
+	<rule ref="NeutronStandard">
+		<exclude name="NeutronStandard.Conditions.DisallowConditionAssignWithoutConditional.ConditionAssignWithoutConditional"/> <!-- Already handled in Generic.CodeAnalysis.AssignmentInCondition.Found -->
+		<exclude name="NeutronStandard.Constants.DisallowDefine.Define"/>
+		<exclude name="NeutronStandard.Functions.LongFunction.LongFunction"/>
+		<exclude name="NeutronStandard.Functions.TypeHint.NoArgumentType"/> <!-- Already handled in SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint -->
+		<exclude name="NeutronStandard.Functions.TypeHint.NoReturnType"/> <!-- Already handled in SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint -->
+		<exclude name="NeutronStandard.StrictTypes.RequireStrictTypes.StrictTypes"/> <!-- Already handled in SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing -->
+		<exclude name="NeutronStandard.Whitespace.RequireParenthesisSpacing.Missing"/> <!-- Already handled in PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket -->
+	</rule>
+	
+	<!-- Ease up on the PHP DOM* objects. -->
+	<rule ref="WordPress.NamingConventions.ValidVariableName">
+		<properties>
+			<property name="allowed_custom_properties" type="array">
+				<!-- DOMDocument::$documentElement -->
+				<element value="documentElement"/>
+				<!-- DOMDocument::$preserveWhiteSpace -->
+				<element value="preserveWhiteSpace"/>
+				<!-- DOMElement::$childElementCount -->
+				<element value="childElementCount"/>
+				<!-- DOMElement::$getAttribute -->
+				<element value="getAttribute"/>
+				<!-- DOMElement::$hasAttribute -->
+				<element value="hasAttribute"/>
+				<!-- DOMElement::$setAttribute -->
+				<element value="setAttribute"/>
+				<!-- DOMElement::$parentNode -->
+				<element value="parentNode"/>
+				<!-- DOMElement::$textContent -->
+				<element value="textContent"/>
+				<!-- DOMNode::$childNodes -->
+				<element value="childNodes"/>
+				<!-- DOMNode::$nodeName -->
+				<element value="nodeName"/>
+				<!-- DOMNode::$nodeType -->
+				<element value="nodeType"/>
+				<!-- DOMNode::$nodeValue -->
+				<element value="nodeValue"/>
+			</property>
+		</properties>
+	</rule>
+	
+	<rule ref="WordPress.Security.PluginMenuSlug"/>
+	<rule ref="WordPress.Security.PluginMenuSlug.Using__FILE__">
+		<type>error</type>
+	</rule>
+	
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="rh_manage_seo_settings"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="ignoreNewlines" value="false"/>
+		</properties>
+	</rule>
+	
+	<rule ref="Squiz">
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
+		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed"/>
+		<exclude name="Generic.CodeAnalysis.RequireExplicitBooleanOperatorPrecedence.MissingParentheses"/>
+		<exclude name="Generic.Commenting.DocComment"/>
+		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSame"/>
+		<exclude name="PEAR.ControlStructures.MultiLineCondition.Alignment"/>
+		<exclude name="PEAR.ControlStructures.MultiLineCondition.SpacingAfterOpenBrace"/>
+		<exclude name="PEAR.ControlStructures.MultiLineCondition.StartWithBoolean"/>
+		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
+		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
+		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
+		<exclude name="PEAR.NamingConventions.ValidFunctionName.FunctionNameInvalid"/>
+		<exclude name="PEAR.NamingConventions.ValidFunctionName.FunctionNoCapital"/>
+		<exclude name="Squiz.Arrays"/>
+		<exclude name="Squiz.Classes"/>
+		<exclude name="Squiz.Commenting.FileComment.Missing"/>
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+		<exclude name="Squiz.Commenting.FileComment.SpacingAfterComment"/>
+		<exclude name="Squiz.Commenting.FunctionComment.EmptyThrows"/>
+		<exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
+		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
+		<exclude name="Squiz.Commenting.LongConditionClosingComment.Missing"/>
+		<exclude name="Squiz.Commenting.PostStatementComment.AnnotationFound"/>
+		<exclude name="Squiz.Commenting.PostStatementComment.Found"/>
+		<exclude name="Squiz.ControlStructures"/>
+		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace"/>
+		<exclude name="Squiz.Files"/>
+		<exclude name="Squiz.Formatting"/>
+		<exclude name="Squiz.Functions.GlobalFunction.Found"/>
+		<exclude name="Squiz.NamingConventions"/>
+		<exclude name="Squiz.Objects.ObjectInstantiation.NotAssigned"/>
+		<exclude name="Squiz.Operators"/>
+		<exclude name="Squiz.PHP"/>
+		<exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound"/>
+		<exclude name="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
+		<exclude name="Squiz.Strings.EchoedStrings.HasBracket"/>
+		<exclude name="Squiz.WhiteSpace.FunctionClosingBraceSpace.SpacingBeforeClose"/>
+		<exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine"/>
+		<exclude name="Universal.ControlStructures.DisallowAlternativeSyntax.FoundForeachWithInlineHTML"/>
+		<exclude name="Universal.ControlStructures.DisallowAlternativeSyntax.FoundIf"/>
+		<exclude name="Universal.ControlStructures.DisallowAlternativeSyntax.FoundIfWithInlineHTML"/>
+		<exclude name="Universal.FunctionDeclarations.NoLongClosures.ExceedsMaximum"/>
+		<exclude name="Universal.FunctionDeclarations.NoLongClosures.ExceedsRecommended"/>
+		<exclude name="Universal.Lists.DisallowLongListSyntax.Found"/>
+		<exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.arrayFound"/>
+		<exclude name="Universal.Operators.DisallowShortTernary.Found"/>
+		<exclude name="Universal.UseStatements.DisallowUseClass.FromSameNamespace"/>
+		<exclude name="Universal.UseStatements.DisallowUseClass.FoundWithAlias"/>
+		<exclude name="Universal.Operators.StrictComparisons.LooseEqual"/> <!-- Already handled in WordPress.PHP.StrictComparisons.LooseComparison-->
+		<exclude name="Universal.Operators.StrictComparisons.LooseNotEqual"/> <!-- Already handled in WordPress.PHP.StrictComparisons.LooseComparison-->
+	</rule>
+	
+	<rule ref="Squiz.Strings.ConcatenationSpacing">
+		<properties>
+			<property name="spacing" value="1" />
+		</properties>
+	</rule>
+	
+	<rule ref="Squiz.WhiteSpace.FunctionSpacing">
+		<properties>
+			<property name="spacing" value="1" />
+			<property name="spacingBeforeFirst" value="0" />
+			<property name="spacingAfterLast" value="0" />
+		</properties>
+	</rule>
+	
+	<rule ref="Squiz.WhiteSpace.MemberVarSpacing">
+		<properties>
+			<property name="spacing" value="1" />
+			<property name="spacingBeforeFirst" value="0" />
+		</properties>
+	</rule>
+	
+	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
+		<properties>
+			<property name="ignoreBlankLines" value="true" />
+		</properties>
+	</rule>
+	
+	<rule ref="Squiz.Commenting.BlockComment.HasEmptyLine"/>
+	<rule ref="Squiz.Commenting.BlockComment.NoNewLine"/>
+	<rule ref="Squiz.Commenting.BlockComment.SingleLine"/>
+	<rule ref="Squiz.Commenting.InlineComment.SpacingAfter"/>
+	
+	<rule ref="Squiz.Commenting.FunctionComment">
+		<properties>
+			<property name="skipIfInheritdoc" value="true" />
+		</properties>
+	</rule>
+	
+	<!-- Single statement on same line. -->
+	<rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+	
+	<!-- Namespacing required for classes. -->
+	<rule ref="PSR1.Classes.ClassDeclaration"/>
+	
+	<!-- Namespacing of `use` statements. -->
+	<rule ref="PSR2.Namespaces.UseDeclaration">
+		<exclude name="PSR2.Namespaces.UseDeclaration.MultipleDeclarations"/>
+	</rule>
+	
+	<!-- Remove Whitespace before line breaks -->
+	<rule ref="Generic.WhiteSpace.ScopeIndent">
+		<properties>
+			<property name="exact" value="true"/>
+			<property name="indent" value="4"/>
+			<property name="tabIndent" value="true"/>
+		</properties>
+	</rule>
+	
+	<!-- Disallow long array syntax. -->
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax">
+		<severity>5</severity>
+	</rule>
+	
+	<rule ref="Generic.WhiteSpace.ScopeIndent">
+		<properties>
+			<property name="indent" value="2"/>
+		</properties>
+	</rule>
+	
+	<rule ref="./vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
+		<exclude name="SlevomatCodingStandard.Arrays.ArrayAccess"/>
+		<exclude name="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation"/>
+		<exclude name="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
+		<exclude name="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
+		<exclude name="SlevomatCodingStandard.Classes.ClassLength"/>
+		<exclude name="SlevomatCodingStandard.Classes.ClassStructure.IncorrectGroupOrder"/>
+		<exclude name="SlevomatCodingStandard.Classes.ClassStructure.IncorrectGroupOrder"/>
+		<exclude name="SlevomatCodingStandard.Classes.ConstantSpacing"/>
+		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.MultipleEmptyLinesAfterOpeningBrace"/> <!-- Already handled in Generic.Classes.OpeningBraceSameLine.ContentAfterBrace -->
+		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineAfterOpeningBrace"/>
+		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineBeforeClosingBrace"/>
+		<exclude name="SlevomatCodingStandard.Classes.ForbiddenPublicProperty.ForbiddenPublicProperty"/>
+		<exclude name="SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal"/> <!-- Already handled in Universal.Classes.RequireFinalClass.NonFinalClassFound -->
+		<exclude name="SlevomatCodingStandard.Classes.RequireMultiLineMethodSignature.RequiredMultiLineSignature"/>
+		<exclude name="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming.SuperfluousSuffix"/>
+		<exclude name="SlevomatCodingStandard.Commenting.DisallowCommentAfterCode.DisallowedCommentAfterCode"/>
+		<exclude name="SlevomatCodingStandard.Commenting.DocCommentSpacing.IncorrectLinesCountBetweenDifferentAnnotationsTypes"/>
+		<exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.MissingVariable"/> <!-- produces false-positives with global keyword -->
+		<exclude name="SlevomatCodingStandard.Commenting.RequireOneLineDocComment.MultiLineDocComment"/>
+		<exclude name="SlevomatCodingStandard.Commenting.RequireOneLinePropertyDocComment.MultiLinePropertyComment"/>
+		<exclude name="SlevomatCodingStandard.Commenting.UselessInheritDocComment.UselessInheritDocComment"/>
+		<exclude name="SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh"/>
+		<exclude name="SlevomatCodingStandard.ControlStructures.AssignmentInCondition.AssignmentInCondition"/> <!-- Already handled in Generic.CodeAnalysis.AssignmentInCondition.Found -->
+		<exclude name="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing.IncorrectLinesCountAfterControlStructure"/>
+		<exclude name="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing.IncorrectLinesCountBeforeControlStructure"/>
+		<exclude name="SlevomatCodingStandard.ControlStructures.DisallowEmpty.DisallowedEmpty"/>
+		<exclude name="SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator.DisallowedShortTernaryOperator"/>
+		<exclude name="SlevomatCodingStandard.ControlStructures.EarlyExit"/> <!-- not supported with "else if": https://github.com/slevomat/coding-standard/issues/365 -->
+		<exclude name="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing"/> <!-- custom integration with support for return directly after an opening tag -->
+		<exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses.UselessParentheses"/>
+		<exclude name="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator.MultiLineTernaryOperatorNotUsed"/>
+		<exclude name="SlevomatCodingStandard.ControlStructures.RequireTernaryOperator.TernaryOperatorNotUsed"/>
+		<exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison.RequiredYodaComparison"/>
+		<exclude name="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator.UselessTernaryOperator"/>
+		<exclude name="SlevomatCodingStandard.Exceptions.DisallowNonCapturingCatch.DisallowedNonCapturingCatch"/>
+		<exclude name="SlevomatCodingStandard.Files.FileLength.FileTooLong"/>
+		<exclude name="SlevomatCodingStandard.Files.LineLength.LineTooLong"/>
+		<exclude name="SlevomatCodingStandard.Files.TypeNameMatchesFileName.NoMatchBetweenTypeNameAndFileName"/>
+		<exclude name="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration.IncorrectSpacesAfterKeyword"/>
+		<exclude name="SlevomatCodingStandard.Functions.DisallowArrowFunction.DisallowedArrowFunction"/>
+		<exclude name="SlevomatCodingStandard.Functions.FunctionLength.FunctionLength"/>
+		<exclude name="SlevomatCodingStandard.Functions.RequireArrowFunction.RequiredArrowFunction"/>
+		<exclude name="SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall"/>
+		<exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall.MissingTrailingComma"/>
+		<exclude name="SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter"/>
+		<exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFullyQualifiedName"/>
+		<exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFullyQualifiedNameWithoutNamespace"/>
+		<exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces"/>
+		<exclude name="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator.RequiredNumericLiteralSeparator"/>
+		<exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedEqualOperator"/> <!-- Already handled in WordPress.PHP.StrictComparisons.LooseComparison -->
+		<exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedNotEqualOperator"/> <!-- Already handled in WordPress.PHP.StrictComparisons.LooseComparison -->
+		<exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPostIncrementOperator"/>
+		<exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreDecrementOperator"/>
+		<exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator"/>
+		<exclude name="SlevomatCodingStandard.PHP.DisallowReference.DisallowedAssigningByReference"/>
+		<exclude name="SlevomatCodingStandard.PHP.DisallowReference.DisallowedPassingByReference"/>
+		<exclude name="SlevomatCodingStandard.PHP.RequireExplicitAssertion.RequiredExplicitAssertion"/>
+		<exclude name="SlevomatCodingStandard.PHP.ShortList.LongListUsed"/>
+		<exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectWhitespaceBeforeDeclare"/>
+		<exclude name="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax.DisallowedArrayTypeHintSyntax"/>
+		<exclude name="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint"/>
+		<exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification"/>
+		<exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification"/>
+		<exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
+		<exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation"/>
+		<exclude name="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable"/>
+		<exclude name="SlevomatCodingStandard.Whitespaces.DuplicateSpaces.DuplicateSpaces"/>
+	</rule>
+	
+	<rule ref="SlevomatCodingStandard.Classes.ClassMemberSpacing">
+		<properties>
+			<property name="linesCountBetweenMembers" value="1"/>
+		</properties>
+	</rule>
+	
+	<rule ref="SlevomatCodingStandard.Classes.MethodSpacing">
+		<properties>
+			<property name="maxLinesCount" value="1"/>
+			<property name="minLinesCount" value="1"/>
+		</properties>
+	</rule>
+	
+	<rule ref="SlevomatCodingStandard.Classes.PropertyDeclaration">
+		<properties>
+			<property name="enableMultipleSpacesBetweenModifiersCheck" value="true"/>
+		</properties>
+	</rule>
+	
+	<rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing">
+		<properties>
+			<property name="linesCountAfter" value="1"/>
+			<property name="linesCountAfterLast" value="0"/>
+			<property name="linesCountBefore" value="1"/>
+			<property name="linesCountBeforeFirst" value="0"/>
+		</properties>
+	</rule>
+	
+	<rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit">
+		<properties>
+			<property name="ignoreStandaloneIfInScope" value="true"/>
+			<property name="ignoreOneLineTrailingIf" value="true"/>
+			<property name="ignoreTrailingIfWithOneInstruction" value="true"/>
+		</properties>
+	</rule>
+	
+	<rule ref="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator">
+		<properties>
+			<property name="lineLengthLimit" value="120"/>
+		</properties>
+	</rule>
+	
+	<rule ref="SlevomatCodingStandard.Namespaces.NamespaceSpacing">
+		<properties>
+			<property name="linesCountAfterNamespace" value="1"/>
+			<property name="linesCountBeforeNamespace" value="1"/>
+		</properties>
+	</rule>
+	
+	<rule ref="SlevomatCodingStandard.Namespaces.UseSpacing">
+		<properties>
+			<property name="linesCountAfterLastUse" value="1"/>
+			<property name="linesCountBeforeFirstUse" value="1"/>
+			<property name="linesCountBetweenUseTypes" value="0"/>
+		</properties>
+	</rule>
+	
+	<rule ref="SlevomatCodingStandard.Operators.SpreadOperatorSpacing">
+		<properties>
+			<property name="spacesCountAfterOperator" value="0"/>
+		</properties>
+	</rule>
+	
+	<rule ref="EpiphytCodingStandard.ControlStructures.JumpStatementsSpacing">
+		<properties>
+			<property name="linesCountAfter" value="0"/>
+			<property name="linesCountAfterLast" value="0"/>
+			<property name="linesCountAfterWhenLastInCaseOrDefault" value="0"/>
+			<property name="linesCountAfterWhenLastInLastCaseOrDefault" value="0"/>
+			<property name="linesCountBefore" value="1"/>
+			<property name="linesCountBeforeFirst" value="0"/>
+			<property name="linesCountBeforeWhenFirstInCaseOrDefault" value="0"/>
+			<property name="jumpStatements" type="array">
+				<element value="continue"/>
+				<element value="return"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>
