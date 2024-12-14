@@ -268,12 +268,6 @@
 		<severity>5</severity>
 	</rule>
 	
-	<rule ref="Generic.WhiteSpace.ScopeIndent">
-		<properties>
-			<property name="indent" value="2"/>
-		</properties>
-	</rule>
-	
 	<rule ref="./vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
 		<exclude name="SlevomatCodingStandard.Arrays.ArrayAccess"/>
 		<exclude name="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation"/>
