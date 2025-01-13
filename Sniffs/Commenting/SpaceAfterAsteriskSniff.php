@@ -18,7 +18,7 @@ class SpaceAfterAsteriskSniff implements Sniff
 
         // Check if there's a space after the asterisk
         $nextToken = $phpcsFile->findNext(T_WHITESPACE, ( $stackPtr + 1 ), null, true);
-        if ($tokens[$nextToken]['content'] !== ' ') {
+        if (!\str_starts_with($tokens[$nextToken]['content'], ' ')) {
             $fix = $phpcsFile->addFixableError('Space required after asterisk in docblock comment', $stackPtr, 'NoSpaceAfterAsterisk');
 
             if ($fix) {
