@@ -158,6 +158,7 @@
 		<exclude name="Generic.CodeAnalysis.RequireExplicitBooleanOperatorPrecedence.MissingParentheses"/>
 		<exclude name="Generic.Commenting.DocComment"/>
 		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSame"/>
+		<exclude name="Generic.NamingConventions.ConstructorName.OldStyle"/>
 		<exclude name="PEAR.ControlStructures.MultiLineCondition.Alignment"/>
 		<exclude name="PEAR.ControlStructures.MultiLineCondition.SpacingAfterOpenBrace"/>
 		<exclude name="PEAR.ControlStructures.MultiLineCondition.StartWithBoolean"/>
