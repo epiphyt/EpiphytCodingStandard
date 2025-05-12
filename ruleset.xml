@@ -358,6 +358,16 @@
 		</properties>
 	</rule>
 	
+	<rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing">
+		<properties>
+			<property name="linesCountBeforeFirstUse" value="0"/>
+			<property name="linesCountBeforeFirstUseWhenFirstInClass" value="0"/>
+			<property name="linesCountBetweenUses" value="0"/>
+			<property name="linesCountAfterLastUse" value="0"/>
+			<property name="linesCountAfterLastUseWhenLastInClass" value="0"/>
+		</properties>
+	</rule>
+	
 	<rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing">
 		<properties>
 			<property name="linesCountAfter" value="1"/>
