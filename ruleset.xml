@@ -137,14 +137,6 @@
 	<rule ref="WordPress.Security.PluginMenuSlug.Using__FILE__">
 		<type>error</type>
 	</rule>
-	
-	<rule ref="WordPress.WP.Capabilities">
-		<properties>
-			<property name="custom_capabilities" type="array">
-				<element value="rh_manage_seo_settings"/>
-			</property>
-		</properties>
-	</rule>
 
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
