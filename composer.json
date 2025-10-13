@@ -1,13 +1,13 @@
 {
-    "require": {
-        "squizlabs/php_codesniffer": "*"
-    },
+    "name": "epiphyt/coding-standard",
+    "type": "phpcodesniffer-standard",
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
-    "require-dev": {
+    "require": {
+        "squizlabs/php_codesniffer": "*",
         "wp-coding-standards/wpcs": "^3.0",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpcompatibility/phpcompatibility-paragonie": "*",

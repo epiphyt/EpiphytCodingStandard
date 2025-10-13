@@ -36,7 +36,9 @@ Then, use it in your `.phpcs.xml`:
 	
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="my-project-name"/>
+			<property name="text_domain" type="array">
+				<element value="my-project-name"/>
+			</property>
 		</properties>
 	</rule>
 	
