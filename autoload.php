@@ -6,7 +6,14 @@
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Util\Standards;
 
-$paths = [__DIR__];
+$installed = Config::getConfigData('installed_paths');
+
+if (!is_string($installed)) {
+    $installed = '';
+}
+
+$paths = array_filter(explode(',', $installed));
+$paths[] = __DIR__;
 $phpCompatibilityPath = __DIR__ . '/vendor/phpcompatibility/php-compatibility';
 
 if (is_dir($phpCompatibilityPath) && !in_array('PHPCompatibility', (Standards::getInstalledStandardDetails()['name'] ?? []))) {
@@ -39,6 +46,8 @@ $wpcsPath = __DIR__ . '/vendor/wp-coding-standards/wpcs';
 if (is_dir($wpcsPath) && !in_array('WordPress', (Standards::getInstalledStandardDetails()['name'] ?? []))) {
     $paths[] = $wpcsPath;
 }
+
+$paths = array_unique(array_filter($paths));
 
 if (!empty($paths)) {
     Config::setConfigData('installed_paths', implode(',', $paths), true);
