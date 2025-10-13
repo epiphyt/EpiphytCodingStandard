@@ -91,16 +91,6 @@
 		<exclude name="WordPress.WP.EnqueuedResourceParameters.NotInFooter"/>
 	</rule>
 	
-	<rule ref="NeutronStandard">
-		<exclude name="NeutronStandard.Conditions.DisallowConditionAssignWithoutConditional.ConditionAssignWithoutConditional"/> <!-- Already handled in Generic.CodeAnalysis.AssignmentInCondition.Found -->
-		<exclude name="NeutronStandard.Constants.DisallowDefine.Define"/>
-		<exclude name="NeutronStandard.Functions.LongFunction.LongFunction"/>
-		<exclude name="NeutronStandard.Functions.TypeHint.NoArgumentType"/> <!-- Already handled in SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint -->
-		<exclude name="NeutronStandard.Functions.TypeHint.NoReturnType"/> <!-- Already handled in SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint -->
-		<exclude name="NeutronStandard.StrictTypes.RequireStrictTypes.StrictTypes"/> <!-- Already handled in SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing -->
-		<exclude name="NeutronStandard.Whitespace.RequireParenthesisSpacing.Missing"/> <!-- Already handled in PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket -->
-	</rule>
-	
 	<!-- Ease up on the PHP DOM* objects. -->
 	<rule ref="WordPress.NamingConventions.ValidVariableName">
 		<properties>

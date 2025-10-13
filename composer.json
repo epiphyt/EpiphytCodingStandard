@@ -12,7 +12,6 @@
         "phpcompatibility/php-compatibility": "^9.3",
         "phpcompatibility/phpcompatibility-paragonie": "*",
         "phpcompatibility/phpcompatibility-wp": "*",
-        "slevomat/coding-standard": "^8.14",
-        "automattic/phpcs-neutron-standard": "^1.7"
+        "slevomat/coding-standard": "^8.14"
     }
 }
