@@ -1,6 +1,6 @@
 <?php
 /**
- * Verifies that there are no else if statements (elseif should be used instead).
+ * Verifies that there are no elseif statements (else if should be used instead).
  */
 
 namespace HeroRules\Sniffs\ControlStructures;
