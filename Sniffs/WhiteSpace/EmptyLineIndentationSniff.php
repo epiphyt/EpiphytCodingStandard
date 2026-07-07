@@ -71,11 +71,58 @@ class EmptyLineIndentationSniff implements Sniff
             
             if ($isError) {
                 $error = 'Empty lines must have the same indentation level as the line before';
-                $phpcsFile->addError($error, $stackPtr, 'IncorrectIndentation');
+                $fix = $phpcsFile->addFixableError($error, $stackPtr, 'IncorrectIndentation');
+
+                if ($fix) {
+                    $expectedIndent = $this->getExpectedIndentation($phpcsFile, $stackPtr);
+                    $current = ($tokens[$stackPtr]['orig_content'] ?? $tokens[$stackPtr]['content']);
+                    $eol = '';
+                    
+                    if(str_contains($current, \PHP_EOL)) {
+                        $eol = \PHP_EOL;
+                    }
+
+                    $phpcsFile->fixer->beginChangeset();
+                    $phpcsFile->fixer->replaceToken($stackPtr, $expectedIndent . $eol);
+                    $phpcsFile->fixer->endChangeset();
+                }
             }
         }
     }
-    
+
+    /**
+     * Get the leading whitespace of the previous non-empty line.
+     *
+     * Mirrors the multiline-string handling used during detection so the
+     * replacement matches the indentation the empty line is compared against.
+     */
+    private function getExpectedIndentation(File $phpcsFile, $stackPtr)
+    {
+        $tokens = $phpcsFile->getTokens();
+
+        $i = 1;
+        $prevLineTokens = $this->getTokensOfLine($phpcsFile, ($tokens[$stackPtr]['line'] - $i));
+        $prevLineFirstToken = \reset($prevLineTokens);
+
+        // Walk up past the body of a multiline quotation to its starting line
+        while (
+            !empty($prevLineFirstToken)
+            && ($prevLineFirstToken['type'] === 'T_DOUBLE_QUOTED_STRING' || $prevLineFirstToken['type'] === 'T_CONSTANT_ENCAPSED_STRING')
+        ) {
+            ++$i;
+            $prevLineTokens = $this->getTokensOfLine($phpcsFile, ($tokens[$stackPtr]['line'] - $i));
+            $prevLineFirstToken = \reset($prevLineTokens);
+        }
+
+        if (empty($prevLineFirstToken) || $prevLineFirstToken['code'] !== T_WHITESPACE) {
+            return '';
+        }
+
+        $indent = ($prevLineFirstToken['orig_content'] ?? $prevLineFirstToken['content']);
+
+        return \rtrim($indent, "\r\n");
+    }
+
     private function getTokensOfLine(File $phpcsFile, $line)
     {
         $tokens = $phpcsFile->getTokens();
