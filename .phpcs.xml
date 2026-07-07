@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="Sniff rule set">
+	<rule ref="PSR12">
+		<exclude name="EpiphytCodingStandard"/>
+		<exclude name="Generic.Files.LineLength.TooLong"/>
+		<exclude name="WordPress"/>
+	</rule>
+	
+	<rule ref="Squiz">
+		<exclude name="Squiz.Files.FileExtension.ClassFound"/>
+		<exclude name="Squiz.Operators.ComparisonOperatorUsage.ImplicitTrue"/>
+		<exclude name="Squiz.Operators.ComparisonOperatorUsage.NotAllowed"/>
+	</rule>
+</ruleset>
