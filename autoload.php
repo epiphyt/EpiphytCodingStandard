@@ -6,6 +6,18 @@
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Util\Standards;
 
+$autoloaders = [
+    __DIR__ . '/vendor/autoload.php', // standalone development of the standard
+    __DIR__ . '/../../autoload.php',  // installed in a project: vendor/epiphyt/coding-standard/../../autoload.php = vendor/autoload.php
+];
+
+foreach ($autoloaders as $autoloader) {
+    if (file_exists($autoloader)) {
+        require_once $autoloader;
+        break;
+    }
+}
+
 $installed = Config::getConfigData('installed_paths');
 
 if (!is_string($installed)) {

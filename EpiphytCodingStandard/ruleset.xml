@@ -46,8 +46,6 @@
 	<!-- Check up to 8 files simultaneously. -->
 	<arg name="parallel" value="8"/>
 	
-	<autoload>./../vendor/autoload.php</autoload>
-	
 	<!-- Enforce PSR1 compatible namespaces. -->
 	<rule ref="PSR1.Classes.ClassDeclaration"/>
 	
