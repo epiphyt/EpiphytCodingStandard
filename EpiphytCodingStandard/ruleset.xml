@@ -182,6 +182,7 @@
 		<exclude name="Universal.Lists.DisallowLongListSyntax.Found"/>
 		<exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.arrayFound"/>
 		<exclude name="Universal.Operators.DisallowShortTernary.Found"/>
+		<exclude name="Universal.PHP.RequireExitDieParentheses.Missing"/>
 		<exclude name="Universal.UseStatements.DisallowUseClass.FromSameNamespace"/>
 		<exclude name="Universal.UseStatements.DisallowUseClass.FoundWithAlias"/>
 		<exclude name="Universal.Operators.StrictComparisons.LooseEqual"/> <!-- Already handled in WordPress.PHP.StrictComparisons.LooseComparison-->
