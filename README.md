@@ -1,36 +1,27 @@
 # Epiphyt Coding Standard
 
-A strict coding standard used at Epiphyt.
+The Epiphyt Coding Standard for PHP_CodeSniffer extends the WordPress Coding Standard by providing sniffs with additional checks.
 
-## Requirements
-
-This package requires Composer to be installed.
+It is more strict and leaves less room for custom code style. It is used throughout all Epiphyt products.
 
 ## Installation
 
-Install Composer dependencies:
+The recommended way to install the Epiphyt Coding Standard is Composer.
 
 ```sh
-composer install
+composer require --dev epiphyt/coding-standard
 ```
 
 ## Configuration
 
-Configure the PHPCS path:
-
-```sh
-./vendor/bin/phpcs --config-set installed_paths /path/to/EpiphytCodingStandard
-```
-
-Don't forget to replace `/path/to/EpiphytCodingStandard` with the actual path to the coding standard.
-
-Then, use it in your `.phpcs.xml`:
+Add the rule `EpiphytCodingStandard`, add all paths to the included sniffs, add a PHP `testVersion` as well as `minimum_supported_wp_version`:
 
 ```xml
 <?xml version="1.0"?>
 <ruleset name="My rule set">
 	<rule ref="EpiphytCodingStandard"/>
 	
+	<config name="installed_paths" value="vendor/wp-coding-standards/wpcs,vendor/phpcsstandards/phpcsutils,vendor/phpcsstandards/phpcsextra,vendor/phpcompatibility/php-compatibility,vendor/phpcompatibility/phpcompatibility-paragonie,vendor/phpcompatibility/phpcompatibility-wp,vendor/slevomat/coding-standard,vendor/epiphyt/coding-standard" />
 	<config name="testVersion" value="7.4-"/>
 	<config name="minimum_supported_wp_version" value="6.3"/>
 	
