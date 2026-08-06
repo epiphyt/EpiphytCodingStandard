@@ -378,6 +378,12 @@
 		</properties>
 	</rule>
 	
+	<rule ref="SlevomatCodingStandard.Functions.DisallowTrailingCommaInDeclaration">
+		<properties>
+			<property name="onlySingleLine" value="true"/>
+		</properties>
+	</rule>
+	
 	<rule ref="SlevomatCodingStandard.Namespaces.NamespaceSpacing">
 		<properties>
 			<property name="linesCountAfterNamespace" value="1"/>
