@@ -3,6 +3,7 @@
  * Automatically register dependent standards for PHPCS.
  */
 
+use Composer\InstalledVersions;
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Util\Standards;
 
@@ -18,6 +19,52 @@ foreach ($autoloaders as $autoloader) {
     }
 }
 
+/**
+ * Get the absolute path of an installed Composer package.
+ *
+ * Resolves the path independently of the current working directory, no matter
+ * whether the standard is developed standalone (dependencies live in its own
+ * vendor directory), installed as a dependency of a project (dependencies are
+ * siblings inside the project's vendor directory) or installed globally.
+ *
+ * @param string $package Package name, e.g. "slevomat/coding-standard"
+ * @return string Absolute path to the package, or an empty string if not found
+ */
+$getPackagePath = static function ($package) {
+    $candidates = [];
+
+    if (class_exists(InstalledVersions::class) && InstalledVersions::isInstalled($package)) {
+        $candidates[] = (string) InstalledVersions::getInstallPath($package);
+    }
+
+    $candidates[] = __DIR__ . '/vendor/' . $package; // standalone development of the standard
+    $candidates[] = dirname(__DIR__, 2) . '/' . $package; // installed in a project
+
+    foreach ($candidates as $candidate) {
+        if ($candidate !== '' && is_dir($candidate)) {
+            return (string) realpath($candidate);
+        }
+    }
+
+    return '';
+};
+
+/**
+ * Dependent standards, mapped to one of the standards they provide.
+ *
+ * The standard name is used to check whether the project already provides it,
+ * in which case the project's version takes precedence.
+ */
+$dependencies = [
+    'phpcompatibility/php-compatibility' => 'PHPCompatibility',
+    'phpcompatibility/phpcompatibility-paragonie' => 'PHPCompatibilityParagonieRandomCompat',
+    'phpcompatibility/phpcompatibility-wp' => 'PHPCompatibilityWP',
+    'phpcsstandards/phpcsextra' => 'Universal',
+    'phpcsstandards/phpcsutils' => 'PHPCSUtils',
+    'slevomat/coding-standard' => 'SlevomatCodingStandard',
+    'wp-coding-standards/wpcs' => 'WordPress',
+];
+
 $installed = Config::getConfigData('installed_paths');
 
 if (!is_string($installed)) {
@@ -26,37 +73,19 @@ if (!is_string($installed)) {
 
 $paths = array_filter(explode(',', $installed));
 $paths[] = __DIR__;
-$phpCompatibilityPath = __DIR__ . '/vendor/phpcompatibility/php-compatibility';
+$installedStandards = Standards::getInstalledStandardDetails(true);
 
-if (is_dir($phpCompatibilityPath) && !in_array('PHPCompatibility', (Standards::getInstalledStandardDetails()['name'] ?? []))) {
-    $paths[] = $phpCompatibilityPath;
-}
+foreach ($dependencies as $package => $standard) {
+    // Only add it if it isn't already provided by the project.
+    if (isset($installedStandards[$standard])) {
+        continue;
+    }
 
-$phpCompatibilityParagoniePath = __DIR__ . '/vendor/phpcompatibility/phpcompatibility-paragonie';
-$phpCompatibilityWpPath = __DIR__ . '/vendor/phpcompatibility/phpcompatibility-wp';
+    $path = $getPackagePath($package);
 
-if (is_dir($phpCompatibilityWpPath) && is_dir($phpCompatibilityParagoniePath) && !in_array('PHPCompatibilityWP', (Standards::getInstalledStandardDetails()['name'] ?? []))) {
-    $paths[] = $phpCompatibilityParagoniePath;
-    $paths[] = $phpCompatibilityWpPath;
-}
-
-$phpcsextraPath = __DIR__ . '/vendor/phpcsstandards/phpcsextra';
-
-if (is_dir($phpcsextraPath) && !in_array('PHPCSExtra', (Standards::getInstalledStandardDetails()['name'] ?? []))) {
-    $paths[] = $phpcsextraPath;
-}
-
-$phpcsutilsPath = __DIR__ . '/vendor/phpcsstandards/phpcsutils';
-
-if (is_dir($phpcsutilsPath) && !in_array('PHPCSUtils', (Standards::getInstalledStandardDetails()['name'] ?? []))) {
-    $paths[] = $phpcsutilsPath;
-}
-
-$wpcsPath = __DIR__ . '/vendor/wp-coding-standards/wpcs';
-
-// Only add it if it exists and isn't already loaded.
-if (is_dir($wpcsPath) && !in_array('WordPress', (Standards::getInstalledStandardDetails()['name'] ?? []))) {
-    $paths[] = $wpcsPath;
+    if ($path !== '') {
+        $paths[] = $path;
+    }
 }
 
 $paths = array_unique(array_filter($paths));

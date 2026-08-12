@@ -252,7 +252,7 @@
 		<severity>5</severity>
 	</rule>
 	
-	<rule ref="./vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
+	<rule ref="SlevomatCodingStandard">
 		<exclude name="SlevomatCodingStandard.Arrays.ArrayAccess"/>
 		<exclude name="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation"/>
 		<exclude name="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
