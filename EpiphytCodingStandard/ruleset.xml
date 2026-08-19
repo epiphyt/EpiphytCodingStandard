@@ -75,7 +75,7 @@
 	<rule ref="PHPCompatibilityWP"/>
 	
 	<rule ref="WordPress">
-		<exclude name="WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned"/>
+		<exclude name="WordPress.Arrays.MultipleStatementAlignment"/>
 		<exclude name="WordPress.DB.PreparedSQLPlaceholders.UnsupportedIdentifierPlaceholder"/>
 		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_key"/>
 		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_value"/>
@@ -128,9 +128,9 @@
 		<type>error</type>
 	</rule>
 
-	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+	<rule ref="WordPress.WhiteSpace.OperatorSpacing">
 		<properties>
-			<property name="ignoreNewlines" value="false"/>
+			<property name="ignoreSpacingBeforeAssignments" value="false"/>
 		</properties>
 	</rule>
 	
